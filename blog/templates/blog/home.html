@@ -1,0 +1,62 @@
+{% extends "blog/base.html"  %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 col-md-10 mx-auto">
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+
+      {% for post in posts %}
+      <div class="post-preview">
+        <div class="author-thumbnail">
+          <img class="rounded-circle author-img" src="{{ post.author.profile.profile_pic.url }}">
+        </div>
+        <div class="post-meta">
+          <a href="">{{ post.author }}</a>
+          发布于 {{ post.pub_date|date:"Y-m-d" }}
+        </div>
+      </div>
+      <div class="post-preview">
+        <a href="{% url 'post-detail' post.id %}">
+          <h2 class="post-title">
+            {{ post.title }}
+          </h2>
+        </a>
+        <p class="">
+          {{ post.content }}
+        </p>
+      </div>
+      <hr>
+      {% endfor %}
+
+      <div class="pagination">
+        {% if is_paginated %}
+          {% if page_obj.has_previous %}
+            <a class="btn btn-outline-info btn-sm mb-4" href="?page=1">First</a>
+            <a class="btn btn-outline-info btn-sm mb-4" href="?page={{ page_obj.previous_page_number }}">prev</a>
+          {% endif %}
+
+          {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+              <a class="btn btn-info btn-sm mb-4" href="?page={{ num }}">{{ num }}</a>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3'%}
+              <a class="btn btn-outline-info btn-sm mb-4" href="?page={{ num }}">{{ num }}</a>
+            {% endif %}
+          {% endfor %}
+
+          {% if page_obj.has_next %}
+            <a class="btn btn-outline-info btn-sm mb-4" href="?page={{ page_obj.next_page_number }}">next</a>
+            <a class="btn btn-outline-info btn-sm mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+          {% endif %}
+
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

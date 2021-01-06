@@ -1,0 +1,49 @@
+<div class="comment-container">
+  <h4>评论</h4>
+  {% include "comments/comment_form.html" %}
+  {% include "comments/reply_form.html" %}
+  {% for comment in comments %}
+    <div id="div-comment-{{ comment.pk }}" class="comment-cell">
+      <div class="author-thumbnail">
+        <img class="rounded-circle author-img" src="{{ comment.user.profile.profile_pic.url }}">
+      </div>
+      <div class="comment-box">
+        <div class="comment-meta">
+          <a href="">{{ comment.user }}</a>
+          {{ comment.created|date:"Y-m-d" }}
+        </div>
+        <div class="comment-content">
+            {{ comment.content }}
+        </div>
+        <div class="comment-info">
+          {% if comment.children.count > 0 %}
+            {{ comment.children.count }}条回复,
+            <a href="#" class="more-btn">点击查看</a>&emsp;
+          {% endif %}
+          <a href="#" class="reply-btn" onclick="do_reply({{ comment.pk }},{{ comment.pk }},'{{ comment.user.username }}',event)">回复</a>
+        </div>
+        <div class="reply-box">
+          {% for child_comment in comment.children %}
+          <div id="div-comment-{{ child_comment.pk }}" class="comment-cell">
+            <div class="author-thumbnail">
+              <img class="rounded-circle author-img" src="{{ child_comment.user.profile.profile_pic.url }}">
+            </div>
+            <div class="comment-box">
+              <div class="comment-meta">
+                <a href="">{{ child_comment.user }}</a>
+                {{ child_comment.created|date:"Y-m-d" }}
+              </div>
+              <div class="comment-content">
+                {{ child_comment.content }}
+              </div>
+              <div class="comment-info">
+                <a href="#" class="reply-btn" onclick="do_reply({{ child_comment.pk }},{{ comment.pk }},'{{ child_comment.user.username }}',event)">回复</a>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>

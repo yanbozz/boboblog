@@ -1,0 +1,12 @@
+{% load crispy_forms_tags %}
+<div id="comment-form" class="comment-form">
+  <form method="POST">
+      {% csrf_token %}
+      <fieldset class="form-group">
+        {{ comment_form|crispy }}
+      </fieldset>
+      <div class="form-group">
+        <button class="btn btn-primary" type="submit">发布</button>
+      </div>
+  </form>
+</div>

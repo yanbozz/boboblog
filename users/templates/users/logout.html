@@ -1,0 +1,17 @@
+{% extends "blog/base.html" %}
+{% block content %}
+<div class="container">
+  <h2>你已退出登录</h2>
+  <div class="border-top pt-3">
+    <small class="text-muted">
+      <a class="ml-2" href="{% url 'login' %}">重新登录</a>
+    </small>
+  </div>
+  <br>
+  <div class="border-top pt-3">
+    <small class="text-muted">
+      还没有账号? <a class="ml-2" href="{% url 'signup' %}">注册</a>
+    </small>
+  </div>
+</div>
+{% endblock content %}

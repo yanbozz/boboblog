@@ -333,63 +333,6 @@ header.masthead .post-heading .meta a {
   }
 }
 
-.floating-label-form-group {
-  font-size: 14px;
-  position: relative;
-  margin-bottom: 0;
-  padding-bottom: 0.5em;
-  border-bottom: 1px solid #dee2e6;
-}
-
-.floating-label-form-group input,
-.floating-label-form-group textarea {
-  font-size: 1.5em;
-  position: relative;
-  z-index: 1;
-  padding: 0;
-  resize: none;
-  border: none;
-  border-radius: 0;
-  background: none;
-  box-shadow: none !important;
-  font-family: 'Lora', 'Times New Roman', serif;
-}
-
-.floating-label-form-group ianput::-webkit-input-placeholder,
-.floating-label-form-group textarea::-webkit-input-placeholder {
-  color: #868e96;
-  font-family: 'Lora', 'Times New Roman', serif;
-}
-
-.floating-label-form-group label {
-  font-size: 0.85em;
-  line-height: 1.764705882em;
-  position: relative;
-  z-index: 0;
-  top: 2em;
-  display: block;
-  margin: 0;
-  transition: top 0.3s ease, opacity 0.3s ease;
-  opacity: 0;
-}
-
-.floating-label-form-group .help-block {
-  margin: 15px 0;
-}
-
-.floating-label-form-group-with-value label {
-  top: 0;
-  opacity: 1;
-}
-
-.floating-label-form-group-with-focus label {
-  color: #0085A1;
-}
-
-form .form-group:first-child .floating-label-form-group {
-  border-top: 1px solid #dee2e6;
-}
-
 footer {
   padding: 50px 0 65px;
 }
@@ -488,7 +431,6 @@ footer .copyright {
 .comment-cell>.comment-box>.comment-meta>a {
   text-decoration: none;
   color: #212529;
-  container
 }
 
 .comment-cell>.comment-box>.comment-meta>a:focus, .comment-cell>.comment-meta>a:hover {
@@ -496,22 +438,19 @@ footer .copyright {
   color: #0085A1;
 }
 
-.comment-cell>.author-thumbnail {
+.comment-cell>.author-thumbnail>.author-img {
   float: left;
   margin-right: 10px;
   margin-top: 10px;
   margin-bottom: 10px;
-}
-
-.comment-cell>.author-thumbnail>.author-img {
-  height: 30px;
-  width: 30px;
+  height: 35px;
+  width: 35px;
 }
 
 .comment-cell>.comment-box {
   padding-bottom: 10px;
   padding-top: 10px;
-  margin-left: 45px
+  margin-left: 45px;
 }
 
 .comment-cell>.comment-box>.comment-content {
@@ -534,21 +473,9 @@ footer .copyright {
   margin-top: 10px;
   margin-bottom: 10px;
   display: none;
+  width: 100%;
 }
 
-.textarea {
-  display: block;
-  box-sizing: padding-box;
-  overflow: hidden;
-  padding: 10px;
+.form-control {
   width: 100%;
-  font-size: 14px;
-  border-radius: 6px;
-  box-shadow: 2px 2px 8px rgba(black, .3);
-  border: 5;
-
-  &:focus {
-    border: none;
-    outline: none;
-  }
 }

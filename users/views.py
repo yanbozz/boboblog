@@ -2,6 +2,7 @@ from .forms import UserSignupForm
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.contrib.auth.views import LoginView
 from django.views.generic.edit import(
     CreateView,
     UpdateView,
@@ -16,7 +17,12 @@ from django.contrib.auth.mixins import (
 from .forms import (
     UserUpdateForm,
     ProfileUpdateForm,
+    CustomAuthenticationForm
 )
+
+
+class CustomLoginView(LoginView):
+    authentication_form = CustomAuthenticationForm
 
 
 class UserSignupView(CreateView):

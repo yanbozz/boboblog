@@ -12,7 +12,7 @@ class CommentForm(forms.ModelForm):
         widgets = {
             'content_type': forms.HiddenInput,
             'object_id': forms.HiddenInput,
-            'content': forms.Textarea(attrs={'placeholder': '说点什么吧...', 'wrap': 'hard',  'rows': '2', 'data-min-rows': '2', 'class': 'autoExpand', 'maxlength': '500',
+            'content': forms.Textarea(attrs={'placeholder': '说点什么吧...', 'class': '', 'rows': '2', 'maxlength': '500',
                                              }),
         }
 

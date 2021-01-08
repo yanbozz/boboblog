@@ -2,6 +2,15 @@ from django import forms
 from .models import Profile
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm, UsernameField
+
+
+class CustomAuthenticationForm(AuthenticationForm):
+    username = UsernameField(
+        label='用户名',
+    )
+
+    password = forms.CharField(label='密码', widget=forms.PasswordInput)
 
 
 class UserSignupForm(UserCreationForm):
@@ -28,6 +37,9 @@ class UserUpdateForm(forms.ModelForm):
         fields = ['username', 'email']
         labels = {
             'username': '用户名',
+        }
+        help_texts = {
+            'username': ''
         }
 
 

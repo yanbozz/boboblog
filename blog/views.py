@@ -13,6 +13,7 @@ from django.views.generic import (
 from django.http import HttpResponseRedirect, HttpResponseForbidden
 
 from .models import Post
+from .forms import PostCreateForm
 from comments.models import Comment
 from comments.forms import CommentForm
 
@@ -74,9 +75,9 @@ class PostDetailView(FormMixin, DetailView):
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
-    model = Post
-    fields = ['title', 'content']
+    form_class = PostCreateForm
     success_url = '/'
+    template_name = 'blog/post_form.html'
 
     def get_login_url(self):
         messages.info(self.request, f"请先登录你的账号.")

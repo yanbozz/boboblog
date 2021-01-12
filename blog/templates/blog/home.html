@@ -33,7 +33,6 @@
       </div>
       <hr>
       {% endfor %}
-
       <div class="pagination">
         {% if is_paginated %}
           {% if page_obj.has_previous %}
@@ -48,12 +47,10 @@
               <a class="btn btn-outline-info btn-sm mb-4" href="?page={{ num }}">{{ num }}</a>
             {% endif %}
           {% endfor %}
-
           {% if page_obj.has_next %}
             <a class="btn btn-outline-info btn-sm mb-4" href="?page={{ page_obj.next_page_number }}">next</a>
             <a class="btn btn-outline-info btn-sm mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
           {% endif %}
-
         {% endif %}
       </div>
     </div>

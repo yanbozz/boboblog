@@ -31,16 +31,11 @@
 <body>
   <!-- Navigation -->
   {% include "blog/navbar.html" %}
-
   <!-- Main Content -->
-
   {% block content %}{% endblock %}
-
-
   <hr>
-
-
-
+  <!-- footer -->
+  {% include "blog/footer.html" %}
   <!-- Bootstrap core JavaScript -->
   <script src="{% static 'blog/vendor/jquery/jquery.js' %}"></script>
   <script src="{% static 'blog/vendor/bootstrap/js/bootstrap.bundle.js' %}"></script>

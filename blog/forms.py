@@ -9,7 +9,6 @@ class PostCreateForm(forms.ModelForm):
         fields = ['title', 'content']
         widgets = {
             'title': forms.TextInput(),
-            'content': forms.Textarea(),
         }
 
         labels = {

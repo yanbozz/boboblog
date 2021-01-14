@@ -126,15 +126,18 @@ USE_TZ = True
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    '/Users/zhaoyanbo/Desktop/boboblog/blog/static/blog'
+]
 
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_UPLOAD_PATH = 'uploads/'
 CKEDITOR_CONFIGS = {
     'default': {
-        'skin': 'moono',
+        'skin': 'moono-lisa',
         # 'skin': 'office2013',
         'toolbar_Basic': [
             ['Source', '-', 'Bold', 'Italic']
@@ -169,11 +172,6 @@ CKEDITOR_CONFIGS = {
                 'Maximize',
 
             ]},
-            {
-                'name': 'extra',
-                'items': [
-                    'CodeSnippet', ],
-            },
         ],
         'toolbar': 'YourCustomToolbarConfig',  # put selected toolbar config here
         # 'toolbarGroups': [{ 'name': 'document', 'groups': [ 'mode', 'document', 'doctools' ] }],
@@ -192,17 +190,19 @@ CKEDITOR_CONFIGS = {
             'autoembed',
             'embedsemantic',
             'autogrow',
-            # 'devtools',
+            'devtools',
             'widget',
             'lineutils',
             'clipboard',
             'dialog',
             'dialogui',
             'elementspath',
-            'codesnippet'
+            'codesnippet',
+            'imageresizerowandcolumn',
         ]),
     }
 }
+CKEDITOR_IMAGE_MAX_WIDTH = '100%'
 
 
 LOGIN_URL = 'login'

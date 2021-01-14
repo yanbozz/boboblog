@@ -8,7 +8,7 @@ class PostCreateForm(forms.ModelForm):
         model = Post
         fields = ['title', 'content']
         widgets = {
-            'title': forms.TextInput(),
+            'title': forms.TextInput(attrs={'style': 'width:100%'}),
         }
 
         labels = {

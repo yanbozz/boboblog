@@ -12,6 +12,7 @@ class Post(models.Model):
     pub_date = models.DateTimeField(default=timezone.now)
     content = RichTextField()
     author = models.ForeignKey(User, on_delete=models.CASCADE)
+    view_count = models.IntegerField(default=0)
 
     def __str__(self):
         return self.title

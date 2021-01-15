@@ -10,7 +10,7 @@ from django.views.generic import (
     DeleteView
 )
 
-from django.http import HttpResponseRedirect, HttpResponseForbidden
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden
 
 from .models import Post
 from .forms import PostCreateForm
@@ -30,6 +30,16 @@ class PostDetailView(FormMixin, DetailView):
     model = Post
     template_name = 'blog/post_detail.html'
     form_class = CommentForm
+    #
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        comment_form = self.get_form()
+        context = super(PostDetailView, self).get_context_data(**kwargs)
+        context['comment_form'] = comment_form
+        self.object.view_count += 1
+        self.object.save()
+        return render(request, self.template_name, context=context)
 
     def post(self, request, *args, **kwargs):
         if not request.user.is_authenticated:

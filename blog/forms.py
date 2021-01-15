@@ -6,7 +6,7 @@ from .models import Post
 class PostCreateForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['title', 'content']
+        fields = ['title', 'content', 'view_count']
         widgets = {
             'title': forms.TextInput(attrs={'style': 'width:100%'}),
         }

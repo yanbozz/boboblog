@@ -22,8 +22,9 @@
           <img class="rounded-circle author-img" src="{{ post.author.profile.profile_pic.url }}">
         </div>
         <div class="post-meta">
-          <a href="">{{ object.author }}</a>
-          发布于 {{ object.pub_date|date:"Y-m-d" }}
+          <a href="">{{ object.author }}&nbsp;</a>
+          发布于&nbsp; {{ object.pub_date|date:"Y-m-d" }}&nbsp;
+          <i class="bi bi-eye-fill"></i> {{ post.view_count }}&nbsp;
         </div>
       </div>
       <div class="">

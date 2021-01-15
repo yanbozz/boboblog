@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'comments.apps.CommentsConfig',
     'crispy_forms',
     'ckeditor',
+    'django_bootstrap_icons',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

@@ -92,6 +92,10 @@ img::-moz-selection {
   background: transparent;
 }
 
+.i {
+  vertical-align: middle;
+}
+
 #mainNav {
   position: relative;
   border-bottom: 1px solid #e9ecef;
@@ -306,7 +310,7 @@ header.masthead .post-heading .meta a {
 }
 
 .post-preview>.post-meta {
-  font-size: 15px;
+  font-size: 12px;
   font-style: italic;
   margin-top: 0;
   margin-bottom: 5px;
@@ -314,6 +318,7 @@ header.masthead .post-heading .meta a {
 }
 
 .post-preview>.post-meta>a {
+  font-size: 15px;
   text-decoration: none;
   color: #212529;
 }

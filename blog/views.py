@@ -33,13 +33,17 @@ class PostDetailView(FormMixin, DetailView):
     #
 
     def get(self, request, *args, **kwargs):
+
         self.object = self.get_object()
         comment_form = self.get_form()
         context = super(PostDetailView, self).get_context_data(**kwargs)
         context['comment_form'] = comment_form
-        self.object.view_count += 1
-        self.object.save()
-        return render(request, self.template_name, context=context)
+        if not request.COOKIES.get('blog_%s_viewed' % self.object.pk):
+            self.object.view_count += 1
+            self.object.save()
+        response = render(request, self.template_name, context=context)
+        response.set_cookie('blog_%s_viewed' % self.object.pk, 'true',)
+        return response
 
     def post(self, request, *args, **kwargs):
         if not request.user.is_authenticated:

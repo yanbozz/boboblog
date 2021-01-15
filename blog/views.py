@@ -30,10 +30,8 @@ class PostDetailView(FormMixin, DetailView):
     model = Post
     template_name = 'blog/post_detail.html'
     form_class = CommentForm
-    #
 
     def get(self, request, *args, **kwargs):
-
         self.object = self.get_object()
         comment_form = self.get_form()
         context = super(PostDetailView, self).get_context_data(**kwargs)
@@ -41,8 +39,8 @@ class PostDetailView(FormMixin, DetailView):
         if not request.COOKIES.get('blog_%s_viewed' % self.object.pk):
             self.object.view_count += 1
             self.object.save()
+            response.set_cookie('blog_%s_viewed' % self.object.pk, 'true',)
         response = render(request, self.template_name, context=context)
-        response.set_cookie('blog_%s_viewed' % self.object.pk, 'true',)
         return response
 
     def post(self, request, *args, **kwargs):

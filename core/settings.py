@@ -139,6 +139,7 @@ CKEDITOR_CONFIGS = {
     'default': {
         'skin': 'moono-lisa',
         # 'skin': 'office2013',
+        'contentsCss': 'img {max-width: 100%;height: auto! important;}',
         'toolbar_Basic': [
             ['Source', '-', 'Bold', 'Italic']
         ],

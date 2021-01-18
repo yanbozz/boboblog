@@ -19,7 +19,7 @@
         <div class="post-meta">
           <a href="">{{ post.author }}&nbsp;&nbsp;</a>
           发布于 {{ post.pub_date|date:"Y-m-d" }}&nbsp;&nbsp;
-          <i class="bi bi-eye-fill"></i> {{ post.view_count }}&nbsp;&nbsp;
+          <i class="bi bi-eye-fill"></i> {{ post.get_view_count }}&nbsp;&nbsp;
         </div>
       </div>
       <div class="post-preview">

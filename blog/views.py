@@ -11,8 +11,8 @@ from django.views.generic import (
 )
 
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden
-
 from .models import Post
+from viewcount.models import ViewCount
 from .forms import PostCreateForm
 from comments.models import Comment
 from comments.forms import CommentForm
@@ -36,12 +36,21 @@ class PostDetailView(FormMixin, DetailView):
         comment_form = self.get_form()
         context = super(PostDetailView, self).get_context_data(**kwargs)
         context['comment_form'] = comment_form
+        # set view count in cookies
         if not request.COOKIES.get('blog_%s_viewed' % self.object.pk):
-            self.object.view_count += 1
-            self.object.save()
+            # create and increment by 1
+            views = ViewCount.objects.filter(post=self.object).first()
+            if not views:
+                views = ViewCount.objects.create(
+                    content_type=self.object.get_content_type,
+                    object_id=self.object.pk
+                )
+            views.count += 1
+            views.save()
+            response = render(request, self.template_name, context=context)
             response.set_cookie('blog_%s_viewed' % self.object.pk, 'true',)
-        response = render(request, self.template_name, context=context)
-        return response
+            return response
+        return render(request, self.template_name, context=context)
 
     def post(self, request, *args, **kwargs):
         if not request.user.is_authenticated:

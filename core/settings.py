@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'blog.apps.BlogConfig',
     'users.apps.UsersConfig',
     'comments.apps.CommentsConfig',
+    'viewcount.apps.ViewcountConfig',
     'crispy_forms',
     'ckeditor',
     'django_bootstrap_icons',

@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect, reverse, get_object_or_404
+from django.shortcuts import render, redirect, reverse
+from django.db.models import Count
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic.edit import FormMixin
@@ -27,28 +28,28 @@ class PostListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['post_dates'] = Post.objects.dates('pub_date', 'month', 'DESC')
+        date_qs = Post.objects.dates('pub_date', 'month', 'DESC')
+        post_dates = self.get_count_in_month(date_qs)
+        context['post_dates'] = post_dates
         return context
 
+    # count post amount per month
+    def get_count_in_month(self, qs):
+        qs = qs.values('datefield').annotate(post_count=Count('id'))
+        post_dates = []
+        for date_qs in qs:
+            post_dates.append((date_qs['datefield'], date_qs['post_count']))
+        return post_dates
 
-class PostListWithDateView(ListView):
-    model = Post
-    template_name = 'blog/home.html'
-    context_object_name = 'posts'
-    ordering = ['-pub_date']
-    paginate_by = 5
+
+class PostListWithDateView(PostListView):
 
     def get_queryset(self):
         post_list = Post.objects.filter(
-            pub_date__year=self.kwargs.get('year'),
-            pub_date__month=self.kwargs.get('month'),
-        )
+            pub_date__year=self.kwargs['year'],
+            pub_date__month=self.kwargs['month'],
+        ).order_by('-pub_date')
         return post_list
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['post_dates'] = Post.objects.dates('pub_date', 'month', 'DESC')
-        return context
 
 
 class PostDetailView(FormMixin, DetailView):
@@ -59,6 +60,7 @@ class PostDetailView(FormMixin, DetailView):
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
         response = super().get(request, *args, **kwargs)
+        # set cookie
         if not request.COOKIES.get('blog_%s_viewed' % self.object.pk):
             # create and increment by 1
             views = ViewCount.objects.filter(post=self.object).first()
@@ -77,8 +79,6 @@ class PostDetailView(FormMixin, DetailView):
             messages.info(self.request, f"请先登录你的账号.")
             return redirect('/login/?next=%s' % request.path)
         form = self.get_form()
-        self.object = self.get_object()
-        context = super().get_context_data(**kwargs)
         form.save(False)
         if form.is_valid():
             parent_obj = None
@@ -103,7 +103,7 @@ class PostDetailView(FormMixin, DetailView):
     def get_context_data(self, **kwargs):
         comment_form = self.get_form()
         self.object = self.get_object()
-        context = super(PostDetailView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         comments = self.object.comments
         context['comments'] = comments
         context['comment_form'] = comment_form

@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic.edit import FormMixin
@@ -25,6 +25,31 @@ class PostListView(ListView):
     ordering = ['-pub_date']
     paginate_by = 5
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['post_dates'] = Post.objects.dates('pub_date', 'month', 'DESC')
+        return context
+
+
+class PostListWithDateView(ListView):
+    model = Post
+    template_name = 'blog/home.html'
+    context_object_name = 'posts'
+    ordering = ['-pub_date']
+    paginate_by = 5
+
+    def get_queryset(self):
+        post_list = Post.objects.filter(
+            pub_date__year=self.kwargs.get('year'),
+            pub_date__month=self.kwargs.get('month'),
+        )
+        return post_list
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['post_dates'] = Post.objects.dates('pub_date', 'month', 'DESC')
+        return context
+
 
 class PostDetailView(FormMixin, DetailView):
     model = Post
@@ -33,10 +58,7 @@ class PostDetailView(FormMixin, DetailView):
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
-        comment_form = self.get_form()
-        context = super(PostDetailView, self).get_context_data(**kwargs)
-        context['comment_form'] = comment_form
-        # set view count in cookies
+        response = super().get(request, *args, **kwargs)
         if not request.COOKIES.get('blog_%s_viewed' % self.object.pk):
             # create and increment by 1
             views = ViewCount.objects.filter(post=self.object).first()
@@ -47,16 +69,16 @@ class PostDetailView(FormMixin, DetailView):
                 )
             views.count += 1
             views.save()
-            response = render(request, self.template_name, context=context)
             response.set_cookie('blog_%s_viewed' % self.object.pk, 'true',)
-            return response
-        return render(request, self.template_name, context=context)
+        return response
 
     def post(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             messages.info(self.request, f"请先登录你的账号.")
             return redirect('/login/?next=%s' % request.path)
         form = self.get_form()
+        self.object = self.get_object()
+        context = super().get_context_data(**kwargs)
         form.save(False)
         if form.is_valid():
             parent_obj = None
@@ -75,12 +97,13 @@ class PostDetailView(FormMixin, DetailView):
             form.instance.root = root_obj
             form.save(True)
             return self.form_valid(form)
+        form.save(True)
         return self.form_invalid(form)
 
     def get_context_data(self, **kwargs):
         comment_form = self.get_form()
         self.object = self.get_object()
-        context = super().get_context_data(**kwargs)
+        context = super(PostDetailView, self).get_context_data(**kwargs)
         comments = self.object.comments
         context['comments'] = comments
         context['comment_form'] = comment_form

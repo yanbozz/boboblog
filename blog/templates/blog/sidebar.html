@@ -1,0 +1,12 @@
+<div class="hidden-xs col-sm-4 col-md-3 col-lg-2">
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-dark">日期归档</li>
+      {% for post_date in post_dates %}
+        <a href="{% url 'posts-with-date' post_date.year post_date.month %}" class="">
+          <li class="list-group-item">
+            {{ post_date|date:"Y年m月" }}
+          </li>
+        </a>
+      {% endfor %}
+    </ul>
+</div>

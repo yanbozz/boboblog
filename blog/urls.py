@@ -6,6 +6,7 @@ from .views import (
     PostCreateView,
     PostUpdateView,
     PostDeleteView,
+    PostListWithDateView,
     about,
 )
 
@@ -20,7 +21,7 @@ urlpatterns = [
          PostUpdateView.as_view(template_name="blog/post_update_form.html"), name='post-update'),
     path('post/<int:pk>/delete/',
          PostDeleteView.as_view(), name='post-delete'),
-
+    path('date/<int:year>/<int:month>', PostListWithDateView.as_view(), name='posts-with-date'),
     path('about', views.about, name='blog-about'),
 
 ]

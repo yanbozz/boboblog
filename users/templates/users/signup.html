@@ -1,26 +1,24 @@
 {% extends "blog/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-<div class="container">
-  <div class="row">
-    <div class="col-lg-8 col-md-10 mx-auto">
-      <form method="POST">
-        {% csrf_token %}
-        <fieldset class="form-group">
-          <legend class="border-bottom mb-4">欢迎加入</legend>
-          {{ form|crispy }}
-        </fieldset>
-        <div class="form-group">
-          <button class="btn btn-primary" type="submit">注册</button>
-        </div>
-      </form>
-      <br>
-      <div class="border-top pt-3">
-        <small class="text-muted">
-          已经有账号? <a class="ml-2" href="{% url 'login' %}">登录</a>
-        </small>
-      </div>
+
+<div class="col-lg-8 col-md-10 mx-auto">
+  <form method="POST">
+    {% csrf_token %}
+    <fieldset class="form-group">
+      <legend class="border-bottom mb-4">欢迎加入</legend>
+      {{ form|crispy }}
+    </fieldset>
+    <div class="form-group">
+      <button class="btn btn-primary" type="submit">注册</button>
     </div>
+  </form>
+  <br>
+  <div class="border-top pt-3">
+    <small class="text-muted">
+      已经有账号? <a class="ml-2" href="{% url 'login' %}">登录</a>
+    </small>
   </div>
 </div>
+
 {% endblock content %}

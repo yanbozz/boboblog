@@ -7,10 +7,10 @@ from django.contrib.contenttypes.fields import GenericRelation
 from django.template.defaultfilters import truncatechars
 from ckeditor.fields import RichTextField
 from comments.models import Comment
-from viewcount.models import ViewCount
+from viewcount.models import ViewCount, ViewCountExtension
 
 
-class Post(models.Model):
+class Post(models.Model, ViewCountExtension):
     title = models.CharField(max_length=50)
     pub_date = models.DateTimeField(default=timezone.now)
     content = RichTextField()
@@ -41,9 +41,3 @@ class Post(models.Model):
     @property
     def short_content(self):
         return truncatechars(self.content, 100)
-
-    @property
-    def get_view_count(self):
-        if self.view_count.first():
-            return self.view_count.first().count
-        return 0

@@ -1,0 +1,48 @@
+{% extends "blog/base.html"  %}
+
+{% block headcontent %}
+  <script src="http://cdn.highcharts.com.cn/highcharts/highcharts.js"></script>
+{% endblock %}
+
+{% block content %}
+<div class="col-lg-8 col-md-10 mx-auto">
+  <div class="viewdata-box"></div>
+  <h3 class="viewdata-title">博客周内浏览数据</h3>
+  <div id="container" style="width: 600px;height:400px;"></div>
+</div>
+<script class="">
+  var options = {
+    chart: {
+      type: 'line'                          //指定图表的类型，默认是折线图（line）
+    },
+    title: {
+      text: null                 // 标题
+    },
+    xAxis: {
+      categories: {{ dates|safe }},  // x 轴分类
+      tickmarkPlacement: 'on',
+    },
+    yAxis: {
+      title: {
+        text: null              // y 轴标题
+      },
+      labels: {
+        enables:false
+      },
+      legend: {
+        enables:false
+      },
+      // credits: {
+      //   enables:false
+      // },
+    },
+    series: [{                              // 数据列
+      name: '阅读量',                        // 数据列名
+      data: {{ view_data }}                   // 数据
+    },],
+
+  };
+  // 图表初始化函数
+  var chart = Highcharts.chart('container', options);
+</script>
+{% endblock %}

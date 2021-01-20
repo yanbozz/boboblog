@@ -9,7 +9,7 @@ from .views import (
     PostListWithDateView,
     about,
 )
-
+from viewcount.views import ViewDataView
 from . import views
 
 
@@ -22,6 +22,7 @@ urlpatterns = [
     path('post/<int:pk>/delete/',
          PostDeleteView.as_view(), name='post-delete'),
     path('date/<int:year>/<int:month>', PostListWithDateView.as_view(), name='posts-with-date'),
+    path('post/view_data', ViewDataView.as_view(), name='posts-view-data'),
     path('about', views.about, name='blog-about'),
 
 ]

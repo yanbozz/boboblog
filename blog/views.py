@@ -14,7 +14,7 @@ from django.views.generic import (
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden
 from .models import Post
 from viewcount.models import ViewCount
-from viewcount.utils import view_stats_once_view
+from viewcount.utils import view_stats_once_viewed
 from .forms import PostCreateForm
 from comments.models import Comment
 from comments.forms import CommentForm
@@ -62,7 +62,7 @@ class PostDetailView(FormMixin, DetailView):
         self.object = self.get_object()
         response = super().get(request, *args, **kwargs)
         # set cookie
-        response = view_stats_once_view(request, response, self.object)
+        response = view_stats_once_viewed(request, response, self.object)
         return response
 
     def post(self, request, *args, **kwargs):

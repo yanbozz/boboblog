@@ -9,6 +9,10 @@ body {
   font-family: 'Lora', 'Times New Roman', serif;
 }
 
+ul {
+  list-style-type: none;
+}
+
 p {
   line-height: 1.5;
   margin: 30px 0;
@@ -71,6 +75,12 @@ blockquote {
   text-shadow: none;
 }
 
+img {
+  max-width: 100%;
+  max-height: 100%;
+  height: inherit !important;
+}
+
 img::-moz-selection {
   color: #fff;
   background: transparent;
@@ -84,6 +94,10 @@ img::selection {
 img::-moz-selection {
   color: #fff;
   background: transparent;
+}
+
+.i {
+  vertical-align: middle;
 }
 
 #mainNav {
@@ -300,7 +314,7 @@ header.masthead .post-heading .meta a {
 }
 
 .post-preview>.post-meta {
-  font-size: 15px;
+  font-size: 12px;
   font-style: italic;
   margin-top: 0;
   margin-bottom: 5px;
@@ -308,6 +322,7 @@ header.masthead .post-heading .meta a {
 }
 
 .post-preview>.post-meta>a {
+  font-size: 15px;
   text-decoration: none;
   color: #212529;
 }

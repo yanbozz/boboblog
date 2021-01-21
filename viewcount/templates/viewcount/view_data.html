@@ -6,9 +6,42 @@
 
 {% block content %}
 <div class="col-lg-8 col-md-10 mx-auto">
-  <div class="viewdata-box"></div>
-  <h3 class="viewdata-title">博客周内浏览数据</h3>
-  <div id="container" style="width: 600px;height:400px;"></div>
+  <div class="viewdata-box">
+    <h3 class="viewdata-title">本周博客浏览数据</h3>
+    <div id="container" style="width: 600px;height:400px;"></div>
+  </div>
+  <div class="viewdata-box">
+    <h3 class="viewdata-title">今日热门博客</h3>
+    <ul>
+      {% for hot_data in today_hot_data %}
+        <li>
+          <a href="{% url 'post-detail' hot_data.object_id %}">{{ hot_data.content_object.title }}</a>&nbsp;({{ hot_data.count }})
+        </li>
+      {% empty %}
+        <li>暂无今日热门博客</li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div class="viewdata-box">
+    <h3 class="viewdata-title">昨日热门博客</h3>
+    <ul>
+      {% for hot_data in yesterday_hot_data %}
+        <li><a href="{% url 'post-detail' hot_data.object_id %}">{{ hot_data.content_object.title }}</a>&nbsp;({{ hot_data.count }})</li>
+      {% empty %}
+        <li>暂无昨日热门博客</li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div class="viewdata-box">
+    <h3 class="viewdata-title">本周热门博客</h3>
+    <ul>
+      {% for hot_post in week_hot_data %}
+      <li><a href="{% url 'post-detail' hot_post.id %}">{{ hot_post.title }}</a>&nbsp;({{ hot_post.view_count_sum }})</li>
+       {% empty %}
+        <li>暂无本周热门博客</li>
+      {% endfor %}
+     </ul>
+  </div>
 </div>
 <script class="">
   var options = {
@@ -21,6 +54,7 @@
     xAxis: {
       categories: {{ dates|safe }},  // x 轴分类
       tickmarkPlacement: 'on',
+      title: {text:'一周内浏览数据'}
     },
     yAxis: {
       title: {

@@ -7,7 +7,7 @@ from django.contrib.contenttypes.fields import GenericRelation
 from django.template.defaultfilters import truncatechars
 from ckeditor.fields import RichTextField
 from comments.models import Comment
-from viewcount.models import ViewCount, ViewCountExtension
+from viewcount.models import ViewCount, ViewCountExtension, ViewDetail
 
 
 class Post(models.Model, ViewCountExtension):
@@ -20,6 +20,12 @@ class Post(models.Model, ViewCountExtension):
         related_query_name='post',
         content_type_field='content_type',
         object_id_field='object_id'
+    )
+    view_detail = GenericRelation(
+        ViewDetail,
+        related_query_name='post',
+        content_type_field='content_type',
+        object_id_field='object_id',
     )
 
     def __str__(self):

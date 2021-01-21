@@ -496,3 +496,13 @@ footer .copyright {
 .form-control {
   width: 100%;
 }
+
+.viewdata-box {
+  text-align: center;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.viewdata-title {
+  margin-bottom: 20px;
+}

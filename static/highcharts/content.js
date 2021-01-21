@@ -1,28 +1,34 @@
-<script>
+
   // 图表配置
+  // let viewData = JSON.parse('{{ view_data | tojson }}');
   var options = {
     chart: {
-      type: 'bar'                          //指定图表的类型，默认是折线图（line）
+      type: 'line'                          //指定图表的类型，默认是折线图（line）
     },
     title: {
-      text: '我的第一个图表'                 // 标题
+      text: null                 // 标题
     },
     xAxis: {
-      categories: ['苹果', '香蕉', '橙子']   // x 轴分类
+      categories: ['1', '2', '3', '4', '5', '6', '7']   // x 轴分类
     },
     yAxis: {
       title: {
-        text: '吃水果个数'                // y 轴标题
-      }
+        text: null              // y 轴标题
+      },
+      labels: {
+        enables:false
+      },
+      legend: {
+        enables:false
+      },
+      // credits: {
+      //   enables:false
+      // },
     },
     series: [{                              // 数据列
-      name: '小明',                        // 数据列名
-      data: [1, 0, 4]                     // 数据
-    }, {
-      name: '小红',
-      data: [5, 7, 3]
-    }]
+      name: '阅读量',                        // 数据列名
+      data: [1, 0, 4]                   // 数据
+    },]
   };
   // 图表初始化函数
   var chart = Highcharts.chart('container', options);
-</script>

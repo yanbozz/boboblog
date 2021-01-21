@@ -130,7 +130,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     '/Users/zhaoyanbo/Desktop/boboblog/blog/static/blog',
-    '/Users/zhaoyanbo/Desktop/boboblog/viewcount/static/viewcount',
+    # '/Users/zhaoyanbo/Desktop/boboblog/viewcount/static/viewcount',
 ]
 
 
@@ -163,7 +163,7 @@ CKEDITOR_CONFIGS = {
                        ]},
             {'name': 'links', 'items': ['Link', 'Unlink', 'Anchor']},
             {'name': 'insert',
-             'items': ['bbcode', 'Image', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe']},
+             'items': ['codesnippet', 'Image', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe']},
             '/',
             {'name': 'styles', 'items': ['Styles', 'Format', 'Font', 'FontSize']},
             {'name': 'colors', 'items': ['TextColor', 'BGColor']},
@@ -174,8 +174,12 @@ CKEDITOR_CONFIGS = {
                 # put the name of your editor.ui.addButton here
                 'Preview',
                 'Maximize',
-
             ]},
+            {
+                'name': 'extra',
+                'items': [
+                    'CodeSnippet', ],
+            },
         ],
         'toolbar': 'YourCustomToolbarConfig',  # put selected toolbar config here
         # 'toolbarGroups': [{ 'name': 'document', 'groups': [ 'mode', 'document', 'doctools' ] }],
@@ -202,11 +206,9 @@ CKEDITOR_CONFIGS = {
             'dialogui',
             'elementspath',
             'codesnippet',
-            'imageresizerowandcolumn',
         ]),
     }
 }
-CKEDITOR_IMAGE_MAX_WIDTH = '100%'
 
 
 LOGIN_URL = 'login'

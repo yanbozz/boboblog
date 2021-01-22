@@ -1,7 +1,6 @@
 {% load crispy_forms_tags %}
 <div id="reply-form" class="comment-form" style="display: none;">
-
-  <form method="POST">
+  <form method="POST" action="{% url 'comment-post' object.id %}">
       {% csrf_token %}
       <div class="form-group">
         {{ comment_form|crispy }}

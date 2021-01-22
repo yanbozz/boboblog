@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, reverse
+import json
 from django.db.models import Count
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -11,7 +12,7 @@ from django.views.generic import (
     DeleteView
 )
 
-from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden, JsonResponse
 from .models import Post
 from viewcount.models import ViewCount
 from viewcount.utils import view_stats_once_viewed
@@ -53,10 +54,9 @@ class PostListWithDateView(PostListView):
         return post_list
 
 
-class PostDetailView(FormMixin, DetailView):
+class PostDetailView(DetailView):
     model = Post
     template_name = 'blog/post_detail.html'
-    form_class = CommentForm
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -65,34 +65,8 @@ class PostDetailView(FormMixin, DetailView):
         response = view_stats_once_viewed(request, response, self.object)
         return response
 
-    def post(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            messages.info(self.request, f"请先登录你的账号.")
-            return redirect('/login/?next=%s' % request.path)
-        form = self.get_form()
-        form.save(False)
-        if form.is_valid():
-            parent_obj = None
-            root_obj = None
-            try:
-                parent_id = int(request.POST.get("parent_id"))
-            except:
-                parent_id = None
-            if parent_id:
-                parent_qs = Comment.objects.filter(id=parent_id)
-                if parent_qs.exists():
-                    parent_obj = parent_qs.first()
-                    root_obj = parent_obj.root if parent_obj.root else parent_obj
-            form.instance.user = request.user
-            form.instance.parent = parent_obj
-            form.instance.root = root_obj
-            form.save(True)
-            return self.form_valid(form)
-        form.save(True)
-        return self.form_invalid(form)
-
     def get_context_data(self, **kwargs):
-        comment_form = self.get_form()
+        comment_form = CommentForm()
         self.object = self.get_object()
         context = super().get_context_data(**kwargs)
         comments = self.object.comments
@@ -101,12 +75,6 @@ class PostDetailView(FormMixin, DetailView):
         context['comment_form'].fields['content_type'].initial = self.object.get_content_type
         context['comment_form'].fields['object_id'].initial = self.object.pk
         return context
-
-    def form_valid(self, form):
-        messages.success(self.request, f"评论发布成功.")
-        post = self.get_object()
-        comment = form.instance.root if form.instance.root else form.instance
-        return HttpResponseRedirect('%s#div-comment-%d' % (post.get_absolute_url(), comment.pk))
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):

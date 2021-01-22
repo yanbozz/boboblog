@@ -130,7 +130,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     '/Users/zhaoyanbo/Desktop/boboblog/blog/static/blog',
-    # '/Users/zhaoyanbo/Desktop/boboblog/viewcount/static/viewcount',
+    '/Users/zhaoyanbo/Desktop/boboblog/viewcount/static/viewcount',
 ]
 
 

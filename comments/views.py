@@ -1,6 +1,7 @@
+import json
 from django.shortcuts import redirect, reverse, redirect
 from django.contrib import messages
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.views.generic.edit import CreateView
 from .forms import CommentForm
 from django.contrib.contenttypes.models import ContentType
@@ -13,13 +14,40 @@ class CommentPostView(CreateView):
     form_class = CommentForm
     model = Comment
 
+    def post(self, request, *args, **kwargs):
+        if request.is_ajax():
+            return self.render_to_json_response(request, *args, **kwargs)
+        return super().post(request, *args, **kwargs)
+
+    def render_to_json_response(self, request, *args, **kwargs):
+        """Render a json response of the context."""
+
+        form = self.get_form()
+        form.save(False)
+        form.instance.content_type = ContentType.objects.get_for_id(
+            request.POST.get('content_type'))
+        form.instance.object_id = request.POST.get('object_id')
+        form.instance.content = request.POST.get('content')
+        form.instance.parent = None
+        form.instance.root = None
+        form.instance.user = request.user
+        form.save(True)
+        response_data = {
+            'status': 'SUCCESS',
+            'content': form.instance.content,
+            'user': form.instance.user.username,
+            'created': form.instance.created.strftime('%Y-%m-%d')
+        }
+        return JsonResponse(response_data)
+
     def get_success_url(self):
         return reverse('post-detail', kwargs={'pk': self.kwargs['pk']})
 
     def get(self, request, *args, **kwargs):
         return redirect('post-detail', self.kwargs['pk'])
-
+    #
     def form_valid(self, form):
+
         user = self.request.user
         if not user.is_authenticated:
             messages.info(self.request, f"请先登录你的账号.")
@@ -35,11 +63,4 @@ class CommentPostView(CreateView):
             form.instance.parent = parent
             form.instance.root = root
         form.save(True)
-        messages.success(self.request, f"评论发布成功.")
-        # response_data = {}
-        # response_data['result'] = 'Create comment successful!'
-        # response_data['comment_id'] = form.instance.id
-        # response_data['content'] = form.instance.content
-        # response_data['created'] = form.instance.created.strftime('%Y-%m-%d')
-        # response_data['user'] = form.instance.user.username
         return super().form_valid(form)

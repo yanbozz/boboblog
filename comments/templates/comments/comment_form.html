@@ -1,4 +1,5 @@
 {% load crispy_forms_tags %}
+{% load static %}
 <div id="comment-form" class="comment-form">
   <form method="POST" action="{% url 'comment-post' object.id %}" class="ml-45">
     {% csrf_token %}
@@ -8,33 +9,51 @@
     </div>
   </form>
 </div>
-{% block script_extends %}
-  <script type="text/javascript">
-    $("#comment_form").submit(function(event){
+<script src="{% static 'blog/vendor/jquery/jquery.js' %}"></script>
+<script type="text/javascript">
+    $("#comment-form").submit(function (event) {
       event.preventDefault();
-      console.log("form submitted!")  // sanity check
-      //submit asynchronously
-
-        $.ajax({
-        url : "{% url 'post-detail' object.id  %}", // the endpoint
-        type : "POST", // http method
-        data : $(this).serialize() // data sent with the post request
-
-        // handle a successful response
-        success : function(json) {
-            $('#comment-form').val(''); // remove the value from the input
-
-            $("#comment-container").prepend("<li><strong>"+json.content+"</strong> - <em> "+json.user+"</em> - <span> "+json.created+"</span></li>");
-            console.log("success"); // another sanity check
+      const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+      $.ajax({
+        url: "{% url 'comment-post' object.id %}",
+        type: 'POST',
+        cache: false,
+        data: {
+          content: $('#id_content').val(),
+          content_type: $('#id_content_type').val(),
+          object_id: $('#id_object_id').val(),
+          parent: $('#id_parent_id').val(),
+          root: $('#id_root_id').val(),
+          csrfmiddlewaretoken: csrftoken,
         },
+        dataType: 'json',
+        success: function (data) {
+            console.log(data);
+            // document.getElementById("comment-form").reset();
 
-        // handle a non-successful response
-        error : function(xhr,errmsg,err) {
-            $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
-                " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
-            console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
-      })
-      return false
 
-  </script>
-{% endblock %}
+            if(data['status']=="SUCCESS"){
+
+              var comment_html = '<div class="comment-box">'
+                                  + '<div class="comment-meta">'
+                                      + '<a href="">' + data.user + '</a>'
+
+                                  +' </div>'
+                                  + '<div class="comment-content">'
+                                  + data.content
+
+                                  + '</div>';
+              $("#comment-container").prepend(comment_html);
+
+            } else{
+
+            }
+          },
+        error: function (xhr){
+          console.log(xhr);
+        }
+
+      });
+      return false;
+    });
+</script>

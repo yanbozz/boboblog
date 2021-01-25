@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'viewcount.apps.ViewcountConfig',
     'crispy_forms',
     'ckeditor',
+    'jquery',
     'django_bootstrap_icons',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -215,6 +216,7 @@ LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'blog-home'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+CSRF_USE_SESSIONS = True
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'

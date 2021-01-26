@@ -26,28 +26,9 @@
           root: $('#id_root_id').val(),
           csrfmiddlewaretoken: csrftoken,
         },
-        dataType: 'json',
         success: function (data) {
-            console.log(data);
-            // document.getElementById("comment-form").reset();
-
-
-            if(data['status']=="SUCCESS"){
-
-              var comment_html = '<div class="comment-box">'
-                                  + '<div class="comment-meta">'
-                                      + '<a href="">' + data.user + '</a>'
-
-                                  +' </div>'
-                                  + '<div class="comment-content">'
-                                  + data.content
-
-                                  + '</div>';
-              $("#comment-container").prepend(comment_html);
-
-            } else{
-
-            }
+            console.log(data)
+            $('.comment-container').prepend(data);
           },
         error: function (xhr){
           console.log(xhr);

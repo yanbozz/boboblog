@@ -1,4 +1,5 @@
 {% load crispy_forms_tags %}
+{% load static %}
 <div id="reply-form" class="comment-form" style="display: none;">
   <form method="POST" action="{% url 'comment-post' object.id %}">
       {% csrf_token %}
@@ -10,3 +11,32 @@
       </div>
   </form>
 </div>
+<script src="{% static 'blog/vendor/jquery/jquery.js' %}"></script>
+<script type="text/javascript">
+    $("#reply-form").submit(function (event) {
+      event.preventDefault();
+      const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+      $.ajax({
+        url: "{% url 'comment-post' object.id %}",
+        type: 'POST',
+        cache: false,
+        data: {
+          content: $('#id_content').val(),
+          content_type: $('#id_content_type').val(),
+          object_id: $('#id_object_id').val(),
+          parent: $('#id_parent_id').val(),
+          root: $('#id_root_id').val(),
+          csrfmiddlewaretoken: csrftoken,
+        },
+        success: function (data) {
+            console.log(data)
+            $('#reply-box').prepend(data);
+          },
+        error: function (xhr){
+          console.log(xhr);
+        }
+
+      });
+      return false;
+    });
+</script>

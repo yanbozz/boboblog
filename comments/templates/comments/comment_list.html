@@ -17,12 +17,12 @@
           </div>
           <div class="comment-info">
             {% if comment.children.count > 0 %}
-              {{ comment.children.count }}条回复,
+              <span id="reply-count">{{ comment.children.count }}</span>条回复,
               <a href="#" class="more-btn">点击查看</a>&emsp;
             {% endif %}
             <a href="#" class="reply-btn" onclick="do_reply({{ comment.pk }},{{ comment.pk }},'{{ comment.user.username }}',event)">回复</a>
           </div>
-          <div id="reply-box" class="reply-box">
+          <div id="reply-box-{{ comment.pk }}" class="reply-box">
             {% for child_comment in comment.children %}
             <div id="div-comment-{{ child_comment.pk }}" class="comment-cell">
               <div class="author-thumbnail">

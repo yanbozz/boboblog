@@ -17,7 +17,7 @@
       {% endif %}
       <a href="#" class="reply-btn" onclick="do_reply({{ comment.pk }},{{ comment.pk }},'{{ comment.user.username }}',event)">回复</a>
     </div>
-    <div class="reply-box">
+    <div id="reply-box-{{ comment.pk }}" class="reply-box">
       {% for child_comment in comment.children %}
       <div id="div-comment-{{ child_comment.pk }}" class="comment-cell">
         <div class="author-thumbnail">

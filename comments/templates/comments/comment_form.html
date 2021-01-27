@@ -29,6 +29,7 @@
         success: function (data) {
             console.log(data)
             $('.comment-container').prepend(data);
+            $('#comment-form .textarea').val("");
           },
         error: function (xhr){
           console.log(xhr);

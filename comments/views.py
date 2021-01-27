@@ -26,7 +26,6 @@ class CommentPostView(CreateView):
         return super().post(request, *args, **kwargs)
 
     def render_to_json_response(self, request, *args, **kwargs):
-        """Render a json response of the context."""
         form = self.get_form()
         form.save(False)
         content_type = ContentType.objects.get_for_id(

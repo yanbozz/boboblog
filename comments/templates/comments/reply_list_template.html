@@ -11,7 +11,7 @@
       {{ child_comment.content }}
     </div>
     <div class="comment-info">
-      <a href="#" class="reply-btn" onclick="do_reply({{ child_comment.pk }},{{ comment.pk }},'{{ child_comment.user.username }}',event)">回复</a>
+      <a href="#" class="reply-btn" onclick="do_reply({{ child_comment.parent.pk }},{{ child_comment.root.pk }},'{{ child_comment.user.username }}',event)">回复</a>
     </div>
   </div>
 </div>

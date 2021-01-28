@@ -22,7 +22,6 @@ class CommentPostView(CreateView):
             return redirect('/login/?next=%s' % self.request.path)
         # address ajax request
         if request.is_ajax():
-            print(request.read())
             return self.render_ajax_request(request, *args, **kwargs)
         return super().post(request, *args, **kwargs)
 
@@ -30,21 +29,9 @@ class CommentPostView(CreateView):
     def render_ajax_request(self, request, *args, **kwargs):
         form = self.get_form()
         form.save(False)
-        content_type = ContentType.objects.get_for_id(
-            request.POST.get('content_type'))
-        parent_id = request.POST.get('parent')
-        root_id = request.POST.get('root')
-        object_id = request.POST.get('object_id')
-        content = request.POST.get('content')
-        form.instance.content_type = content_type
-        form.instance.content = content
-        form.instance.parent = None
-        form.instance.root = None
         form.instance.user = request.user
         context = {}
-        if parent_id:
-            form.instance.parent = Comment.objects.get(pk=parent_id)
-            form.instance.root = Comment.objects.get(pk=root_id)
+        if form.cleaned_data['parent']:
             form.save(True)
             context['child_comment'] = form.instance
             return render(request, 'comments/reply_list_template.html', context)
@@ -60,16 +47,6 @@ class CommentPostView(CreateView):
 
     def form_valid(self, form):
         # create comment instance with the form
-        user = self.request.user
-        post = Post.objects.get(pk=self.kwargs['pk'])
-        form.save(False)
-        form.instance.parent = None
-        form.instance.root = None
-        form.instance.user = user
-        if form.cleaned_data['parent_id']:
-            parent = Comment.objects.get(pk=form.cleaned_data['parent_id'])
-            root = parent.root if parent.root else parent
-            form.instance.parent = parent
-            form.instance.root = root
+        form.instance.user = self.request.user
         form.save(True)
         return super().form_valid(form)

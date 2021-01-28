@@ -13,7 +13,6 @@
 </div>
 <script src="{% static 'blog/vendor/jquery/jquery.js' %}"></script>
 <script type="text/javascript">
-
     $("#reply-form").submit(function () {
       const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
       $.ajax({
@@ -24,18 +23,20 @@
           content: $('#reply-form #id_content').val(),
           content_type: $('#reply-form #id_content_type').val(),
           object_id: $('#reply-form #id_object_id').val(),
-          parent: $('#reply-form #id_parent_id').val(),
-          root: $('#reply-form #id_root_id').val(),
+          parent: $('#reply-form #id_parent').val(),
+          root: $('#reply-form #id_root').val(),
           csrfmiddlewaretoken: csrftoken,
         },
         success: function (data) {
-            var rootID = $('#reply-form #id_root_id').val().toString();
+            var rootID = $('#reply-form #id_root').val().toString();
             var replyCount = $('#div-comment-' + rootID + ' .comment-info' + ' #reply-count');
-
+            // insert into reply list
             $('#reply-box-' + rootID).prepend(data);
             $('#reply-box-' + rootID).show();
+            // reset form value and hide
             $('#reply-form').val("");
             $('#reply-form').hide();
+            // reply count plus one
             replyCount.text((Number(replyCount.text()) + 1).toString());
           },
         error: function (xhr){

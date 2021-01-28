@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'comments.apps.CommentsConfig',
     'viewcount.apps.ViewcountConfig',
+    'tag.apps.TagConfig',
     'crispy_forms',
     'ckeditor',
     'jquery',

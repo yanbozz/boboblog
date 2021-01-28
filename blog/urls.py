@@ -7,6 +7,7 @@ from .views import (
     PostUpdateView,
     PostDeleteView,
     PostListWithDateView,
+    PostTagListView,
     about,
 )
 from comments.views import CommentPostView
@@ -26,5 +27,5 @@ urlpatterns = [
     path('date/<int:year>/<int:month>/', PostListWithDateView.as_view(), name='posts-with-date'),
     path('post/view_data/', ViewDataView.as_view(), name='posts-view-data'),
     path('about/', views.about, name='blog-about'),
-
+    path('post/<slug:slug>/', PostTagListView.as_view(), name='posts-with-tag'),
 ]

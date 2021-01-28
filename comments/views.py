@@ -22,10 +22,12 @@ class CommentPostView(CreateView):
             return redirect('/login/?next=%s' % self.request.path)
         # address ajax request
         if request.is_ajax():
-            return self.render_to_json_response(request, *args, **kwargs)
+            print(request.read())
+            return self.render_ajax_request(request, *args, **kwargs)
         return super().post(request, *args, **kwargs)
 
-    def render_to_json_response(self, request, *args, **kwargs):
+    # render ajax request
+    def render_ajax_request(self, request, *args, **kwargs):
         form = self.get_form()
         form.save(False)
         content_type = ContentType.objects.get_for_id(

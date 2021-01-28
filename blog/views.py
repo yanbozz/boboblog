@@ -16,6 +16,7 @@ from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidde
 from .models import Post
 from viewcount.models import ViewCount
 from viewcount.utils import view_stats_once_viewed
+from tag.models import PostTag
 from .forms import PostCreateForm
 from comments.models import Comment
 from comments.forms import CommentForm
@@ -52,6 +53,14 @@ class PostListWithDateView(PostListView):
             pub_date__month=self.kwargs['month'],
         ).order_by('-pub_date')
         return post_list
+
+
+class PostTagListView(PostListView):
+
+    def get_queryset(self):
+        tag_name = self.kwargs['slug']
+        tag = PostTag.objects.get(tag_name=tag_name)
+        return tag.get_posts()
 
 
 class PostDetailView(DetailView):

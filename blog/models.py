@@ -54,7 +54,7 @@ class Post(models.Model, ViewCountExtension):
     # get tag names for this post object
     @property
     def get_tag_names(self):
-        tags = list(self.tags.values_list('tag_name', flat=True))[:3]
+        tags = list(self.tags.values_list('tag_name', flat=True))
         return tags
 
     # get tag objects for this post

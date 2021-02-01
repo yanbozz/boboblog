@@ -34,16 +34,30 @@ class Post(models.Model, ViewCountExtension):
     def get_absolute_url(self):
         return reverse('post-detail', kwargs={'pk': self.pk})
 
+    # get comment lists for this object
     @property
     def comments(self):
         qs = Comment.objects.filter_by_instance(self)
         return qs
 
+    # get content_type for this post object
     @property
     def get_content_type(self):
         content_type = ContentType.objects.get_for_model(self.__class__)
         return content_type
 
+    # display a shorted content for admin page
     @property
     def short_content(self):
         return truncatechars(self.content, 100)
+
+    # get tag names for this post object
+    @property
+    def get_tag_names(self):
+        tags = list(self.tags.values_list('tag_name', flat=True))[:3]
+        return tags
+
+    # get tag objects for this post
+    @property
+    def get_tag_qs(self):
+        return self.tags.all()

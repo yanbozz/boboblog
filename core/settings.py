@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'jquery',
     'django_bootstrap_icons',
+    'uuslug',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

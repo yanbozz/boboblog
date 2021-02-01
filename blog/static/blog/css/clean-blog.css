@@ -506,3 +506,9 @@ footer .copyright {
 .viewdata-title {
   margin-bottom: 20px;
 }
+
+.tag-container {
+  margin-bottom: 40px;
+  font-style: italic;
+  color: #868e96;
+}

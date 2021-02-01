@@ -13,4 +13,5 @@ class PostAdmin(admin.ModelAdmin):
         'short_content',
         'author',
         'get_view_count',
+        'get_tag_names',
     )

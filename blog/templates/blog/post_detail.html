@@ -24,6 +24,12 @@
       <a href="">{{ object.author }}&nbsp;</a>
       发布于 {{ object.pub_date|date:"Y-m-d" }}&nbsp;
       <i class="bi bi-eye-fill"></i> {{ post.get_view_count }}&nbsp;
+      <p>
+        标签分类:
+        {% for tag in object.get_tag_qs %}
+          <a href="{% url 'posts-with-tag' tag.slug %}">{{ tag.tag_name }}</a>
+        {% endfor %}
+      </p>
     </div>
   </div>
   <div class="">

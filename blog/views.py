@@ -16,7 +16,7 @@ from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidde
 from .models import Post
 from viewcount.models import ViewCount
 from viewcount.utils import view_stats_once_viewed
-from tag.models import PostTag
+from tag.models import PostTag, PostTagManager
 from .forms import PostCreateForm
 from comments.models import Comment
 from comments.forms import CommentForm
@@ -56,10 +56,16 @@ class PostListWithDateView(PostListView):
 
 
 class PostTagListView(PostListView):
+    template_name = 'blog/post_tag.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tag'] = PostTag.objects.get(slug=self.kwargs['slug'])
+        return context
 
     def get_queryset(self):
         tag_name = self.kwargs['slug']
-        tag = PostTag.objects.get(tag_name=tag_name)
+        tag = PostTag.objects.get(slug=tag_name)
         return tag.get_posts()
 
 
@@ -97,6 +103,9 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.author = self.request.user
+        form.save(True)
+        tag_list = form.cleaned_data['tags']
+        PostTag.objects.add_post_to_tag(form.instance, tag_list)
         messages.success(self.request, f"发布成功!")
         return super().form_valid(form)
 

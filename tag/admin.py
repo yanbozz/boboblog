@@ -5,6 +5,6 @@ from .models import PostTag
 @admin.register(PostTag)
 class PostTagAdmin(admin.ModelAdmin):
     list_display = [
+        'slug',
         'tag_name',
-
     ]

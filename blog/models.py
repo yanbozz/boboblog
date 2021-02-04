@@ -40,6 +40,10 @@ class Post(models.Model, ViewCountExtension):
         qs = Comment.objects.filter_by_instance(self)
         return qs
 
+    @property
+    def get_comments_count(self):
+        return self.comments.count()
+
     # get content_type for this post object
     @property
     def get_content_type(self):
@@ -49,7 +53,7 @@ class Post(models.Model, ViewCountExtension):
     # display a shorted content for admin page
     @property
     def short_content(self):
-        return truncatechars(self.content, 100)
+        return truncatechars(self.content, 300)
 
     # get tag names for this post object
     @property

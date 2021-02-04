@@ -1,3 +1,4 @@
+from django.contrib.auth.views import PasswordResetView
 from .forms import UserSignupForm
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
@@ -60,3 +61,8 @@ class ProfileUpdateView(UpdateView, LoginRequiredMixin, UserPassesTestMixin):
             'p_form': p_form,
         }
         return render(request, self.template_name, context=context)
+
+
+class PasswordResetView(PasswordResetView):
+    email_template_name = 'users/password_reset_email.html'
+    subject_template_name = 'users/password_reset_subject.txt'

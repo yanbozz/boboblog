@@ -20,6 +20,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
+from users.views import PasswordResetView
 from users.views import (
     UserSignupView,
     ProfileUpdateView,
@@ -36,7 +37,7 @@ urlpatterns = [
     path('signup/', UserSignupView.as_view(template_name='users/signup.html'), name='signup'),
     path('profile/',
          ProfileUpdateView.as_view(template_name='users/profile.html'), name='profile'),
-    path('password_reset/', auth_views.PasswordResetView.as_view(template_name='users/password_reset_form.html'),
+    path('password_reset/', PasswordResetView.as_view(template_name='users/password_reset_form.html'),
          name='password_reset'),
     path('password_reset_done/', auth_views.PasswordResetDoneView.as_view(template_name='users/password_reset_done.html'),
          name='password_reset_done'),

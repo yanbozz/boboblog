@@ -293,6 +293,12 @@ header.masthead .post-heading .meta a {
   }
 }
 
+.post-preview {
+  margin-bottom: 40px;
+}
+
+.post-box {}
+
 .post-preview>a {
   color: #212529;
 }
@@ -302,19 +308,19 @@ header.masthead .post-heading .meta a {
   color: #0085A1;
 }
 
-.post-preview>a>.post-title {
+.post-box>a>.post-title {
   font-size: 30px;
   margin-top: 10px;
   margin-bottom: 10px;
 }
 
-.post-preview>a>.post-subtitle {
+.post-box>a>.post-subtitle {
   font-weight: 300;
   margin: 0 0 10px;
 }
 
 .post-preview>.post-meta {
-  font-size: 12px;
+  font-size: 15px;
   font-style: italic;
   margin-top: 0;
   margin-bottom: 5px;
@@ -332,12 +338,12 @@ header.masthead .post-heading .meta a {
   color: #0085A1;
 }
 
-.post-preview>.author-thumbnail {
+.post-meta>.author-thumbnail {
   margin-right: 10px;
   float: left
 }
 
-.post-preview>.author-thumbnail>.author-img {
+.author-thumbnail>.author-img {
   height: 30px;
   width: 30px;
 }
@@ -511,4 +517,24 @@ footer .copyright {
   margin-bottom: 40px;
   font-style: italic;
   color: #868e96;
+}
+
+.tag-list {
+  margin-bottom: 40px;
+  font-size: 15px
+}
+
+.tag-list .list-group-item {
+  padding: 5px 10px;
+  border: 0;
+}
+
+.date-list {
+  margin-bottom: 40px;
+  font-size: 15px
+}
+
+.date-list .list-group-item {
+  padding: 5px 10px;
+  border: 0;
 }

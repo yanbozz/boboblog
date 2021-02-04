@@ -11,7 +11,7 @@ from django.views.generic import (
     UpdateView,
     DeleteView
 )
-
+from django.views.generic.base import ContextMixin
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden, JsonResponse
 from .models import Post
 from viewcount.models import ViewCount
@@ -22,18 +22,17 @@ from comments.models import Comment
 from comments.forms import CommentForm
 
 
-class PostListView(ListView):
-    model = Post
-    template_name = 'blog/home.html'
-    context_object_name = 'posts'
-    ordering = ['-pub_date']
-    paginate_by = 5
+class SidebarContextMixin(ContextMixin):
 
+    # add context mixin for sidebar
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         date_qs = Post.objects.dates('pub_date', 'month', 'DESC')
         post_dates = self.get_count_in_month(date_qs)
+        # count post num for each tag
+        tags = PostTag.objects.get_posts_count()
         context['post_dates'] = post_dates
+        context['tags'] = tags
         return context
 
     # count post amount per month
@@ -43,6 +42,14 @@ class PostListView(ListView):
         for date_qs in qs:
             post_dates.append((date_qs['datefield'], date_qs['post_count']))
         return post_dates
+
+
+class PostListView(ListView, SidebarContextMixin):
+    model = Post
+    template_name = 'blog/home.html'
+    context_object_name = 'posts'
+    ordering = ['-pub_date']
+    paginate_by = 5
 
 
 class PostListWithDateView(PostListView):
@@ -69,7 +76,7 @@ class PostTagListView(PostListView):
         return tag.get_posts()
 
 
-class PostDetailView(DetailView):
+class PostDetailView(DetailView, SidebarContextMixin):
     model = Post
     template_name = 'blog/post_detail.html'
 

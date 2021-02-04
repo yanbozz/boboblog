@@ -1,3 +1,4 @@
+from django.db.models import Count
 from django.utils import timezone
 from django.db import models
 from blog.models import Post
@@ -5,6 +6,10 @@ from uuslug import slugify
 
 
 class PostTagManager(models.Manager):
+    # count post num for each tag
+    def get_posts_count(self):
+        tags = PostTag.objects.annotate(num_posts=Count('posts')).order_by('-num_posts')
+        return tags
 
     def get_tags_for_post(self, instance):
         qs = PostTag.objects.filter(posts=instance)
@@ -31,7 +36,7 @@ class PostTag(models.Model):
         return self.tag_name
 
     def __unicode__(self):
-        return self.tag_name
+        return self.slug
 
     def get_posts(self):
         return Post.objects.filter(tag=self)

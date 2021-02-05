@@ -16,6 +16,7 @@
       发布于 {{ post.pub_date|date:"Y-m-d" }}&nbsp;&nbsp;
       <i class="bi bi-eye-fill"></i> {{ post.get_view_count }}&nbsp;&nbsp;
       <i class="bi bi-chat-left-fill"></i> {{ post.get_comments_count }}&nbsp;&nbsp;
+
     </div>
     <div class="post-box">
       <a href="{% url 'post-detail' post.id %}">
@@ -23,7 +24,7 @@
           {{ post.title }}
         </h3>
       </a>
-      {{ post.content|safe }}
+      {{ post.short_content|safe }}
     </div>
   </div>
   <hr>

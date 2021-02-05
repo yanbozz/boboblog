@@ -13,22 +13,20 @@
   </div>
   {% for post in posts %}
   <div class="post-preview">
-    <div class="author-thumbnail">
-      <img class="rounded-circle author-img" src="{{ post.author.profile.profile_pic.url }}">
-    </div>
     <div class="post-meta">
       <a href="">{{ post.author }}&nbsp;&nbsp;</a>
       发布于 {{ post.pub_date|date:"Y-m-d" }}&nbsp;&nbsp;
       <i class="bi bi-eye-fill"></i> {{ post.get_view_count }}&nbsp;&nbsp;
+      <i class="bi bi-chat-left-fill"></i> {{ post.get_comments_count }}&nbsp;&nbsp;
     </div>
-  </div>
-  <div class="post-preview">
-    <a href="{% url 'post-detail' post.id %}">
-      <h2 class="post-title">
-        {{ post.title }}
-      </h2>
-    </a>
-    {{ post.content|safe }}
+    <div class="post-box">
+      <a href="{% url 'post-detail' post.id %}">
+        <h3 class="post-title">
+          {{ post.title }}
+        </h3>
+      </a>
+      {{ post.short_content|safe }}
+    </div>
   </div>
   <hr>
   {% endfor %}

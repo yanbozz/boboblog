@@ -53,7 +53,11 @@ class Post(models.Model, ViewCountExtension):
     # display a shorted content for admin page
     @property
     def short_content(self):
-        return truncatechars(self.content, 300)
+        paragraphs = self.content.split('</p>')[:2]
+        short_content = ''
+        for paragraph in paragraphs:
+            short_content += paragraph + '</p>'
+        return short_content
 
     # get tag names for this post object
     @property

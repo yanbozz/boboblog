@@ -294,10 +294,16 @@ header.masthead .post-heading .meta a {
 }
 
 .post-preview {
-  margin-bottom: 40px;
+  padding: 5px
 }
 
-.post-box {}
+.post-box {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  /*设置省略号在容器第十行文本后*/
+  -webkit-line-clamp: 8;
+  overflow: hidden;
+}
 
 .post-preview>a {
   color: #212529;

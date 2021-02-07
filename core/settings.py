@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'tag.apps.TagConfig',
     'crispy_forms',
     'ckeditor',
+    'ckeditor_uploader',
     'jquery',
     'django_bootstrap_icons',
     'uuslug',

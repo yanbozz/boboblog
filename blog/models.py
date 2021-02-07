@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericRelation
 from django.template.defaultfilters import truncatechars
-from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
 from comments.models import Comment
 from viewcount.models import ViewCount, ViewCountExtension, ViewDetail
 
@@ -13,7 +13,7 @@ from viewcount.models import ViewCount, ViewCountExtension, ViewDetail
 class Post(models.Model, ViewCountExtension):
     title = models.CharField(max_length=50)
     pub_date = models.DateTimeField(default=timezone.now)
-    content = RichTextField()
+    content = RichTextUploadingField()
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     view_count = GenericRelation(
         ViewCount,

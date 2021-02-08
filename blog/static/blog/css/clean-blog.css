@@ -115,7 +115,7 @@ img::-moz-selection {
 }
 
 .post-preview {
-  padding: 5px
+  padding: 5px;
 }
 
 .post-box {
@@ -146,12 +146,15 @@ img::-moz-selection {
   margin: 0 0 10px;
 }
 
-.post-preview>.post-meta {
+.post-meta {
   font-size: 15px;
   font-style: italic;
   margin-top: 0;
   margin-bottom: 5px;
   color: #868e96;
+  display: inline-block;
+  height: 45px;
+  position: relative;
 }
 
 .post-preview>.post-meta>a {
@@ -165,14 +168,19 @@ img::-moz-selection {
   color: #0085A1;
 }
 
-.post-meta>.author-thumbnail {
+.author-thumbnail {
   margin-right: 10px;
-  float: left
+  display: inline-block;
+  height: 45px;
+  width: 45px;
+  position: relative;
+  float: left;
 }
 
 .author-thumbnail>.author-img {
-  height: 30px;
-  width: 30px;
+  height: 100%;
+  width: 100%;
+  visibility: middle;
 }
 
 @media only screen and (min-width: 768px) {

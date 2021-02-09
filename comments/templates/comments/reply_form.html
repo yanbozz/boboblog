@@ -38,6 +38,8 @@
             $('#reply-form').hide();
             // reply count plus one
             replyCount.text((Number(replyCount.text()) + 1).toString());
+            var morebtn = replyCount.next();
+            morebtn.text(morebtn.text()== '点击查看' ? '收起': '点击查看');
           },
         error: function (xhr){
           console.log(xhr);

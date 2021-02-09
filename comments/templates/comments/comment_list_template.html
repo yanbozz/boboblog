@@ -12,7 +12,7 @@
     </div>
     <div class="comment-info">
       {% if comment.children.count > 0 %}
-        {{ comment.children.count }}条回复,
+        <span id="reply-count">{{ comment.children.count }}</span>条回复,
         <a href="#" class="more-btn">点击查看</a>&emsp;
       {% endif %}
       <a href="#" class="reply-btn" onclick="do_reply({{ comment.pk }},{{ comment.pk }},'{{ comment.user.username }}',event)">回复</a>

@@ -13,15 +13,13 @@
       <h2 class="post-title">
         {{ object.title }}
       </h2>
-      <h3 class="post-subtitle">
-      </h3>
-  </div>
-  <div class="author-thumbnail">
-    <img class="rounded-circle author-img" src="{{ post.author.profile.profile_pic.url }}">
-  </div>
-  <div class="post-meta">
-    <a href="">{{ object.author }}</a>&nbsp;&nbsp;<br>
-    {{ object.pub_date|date:"Y-m-d" }}&nbsp;<i class="bi bi-eye-fill"></i> {{ post.get_view_count }}&nbsp;
+      <div class="author-thumbnail">
+        <img class="rounded-circle author-img" src="{{ post.author.profile.profile_pic.url }}">
+      </div>
+      <div class="post-meta">
+        <a href="">{{ object.author }}</a>&nbsp;&nbsp;<br>
+        {{ object.pub_date|date:"Y-m-d" }}&nbsp;<i class="bi bi-eye-fill"></i> {{ post.get_view_count }}&nbsp;
+      </div>
   </div>
   <div class="post-content">
     <p>{{ object.content|safe }}</p>

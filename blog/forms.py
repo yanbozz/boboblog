@@ -1,5 +1,4 @@
 from django import forms
-
 from .models import Post
 from tag.models import PostTag
 from tag.utils import get_tag_list

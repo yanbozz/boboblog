@@ -100,197 +100,30 @@ img::-moz-selection {
   vertical-align: middle;
 }
 
-#mainNav {
-  position: relative;
-  border-bottom: 1px solid #e9ecef;
-  background-color: white;
-  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+.bd-placeholder-img {
+  font-size: 1.125rem;
+  text-anchor: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
 }
 
-#mainNav .navbar-brand {
-  font-weight: 800;
-  color: #343a40;
-}
-
-#mainNav .navbar-toggler {
-  font-size: 12px;
-  font-weight: 800;
-  padding: 13px;
-  text-transform: uppercase;
-  color: #343a40;
-}
-
-#mainNav .navbar-nav>li.nav-item>a {
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
-
-@media only screen and (min-width: 992px) {
-  #mainNav {
-    border-bottom: 1px solid transparent;
-    background: transparent;
-  }
-
-  #mainNav .navbar-brand {
-    padding: 10px 20px;
-    color: #fff;
-  }
-
-  #mainNav .navbar-brand:focus, #mainNav .navbar-brand:hover {
-    color: rgba(255, 255, 255, 0.8);
-  }
-
-  #mainNav .navbar-nav>li.nav-item>a {
-    padding: 10px 20px;
-    color: #fff;
-  }
-
-  #mainNav .navbar-nav>li.nav-item>a:focus, #mainNav .navbar-nav>li.nav-item>a:hover {
-    color: rgba(255, 255, 255, 0.8);
+@media (min-width: 768px) {
+  .bd-placeholder-img-lg {
+    font-size: 3.5rem;
   }
 }
 
-@media only screen and (min-width: 992px) {
-  #mainNav {
-    transition: background-color 0.2s;
-    /* Force Hardware Acceleration in WebKit */
-    transform: translate3d(0, 0, 0);
-    -webkit-backface-visibility: hidden;
-  }
-
-  #mainNav.is-fixed {
-    /* when the user scrolls down, we hide the header right above the viewport */
-    position: fixed;
-    top: -67px;
-    transition: transform 0.2s;
-    border-bottom: 1px solid white;
-    background-color: rgba(255, 255, 255, 0.9);
-  }
-
-  #mainNav.is-fixed .navbar-brand {
-    color: #fff;
-  }
-
-  #mainNav.is-fixed .navbar-brand:focus, #mainNav.is-fixed .navbar-brand:hover {
-    color: #343a40;
-  }
-
-  #mainNav.is-fixed .navbar-nav>li.nav-item>a {
-    color: #fff;
-  }
-
-  #mainNav.is-fixed .navbar-nav>li.nav-item>a:focus, #mainNav.is-fixed .navbar-nav>li.nav-item>a:hover {
-    color: #343a40;
-  }
-
-  #mainNav.is-visible {
-    /* if the user changes the scrolling direction, we show the header */
-    transform: translate3d(0, 100%, 0);
-  }
+.post-preview {
+  padding: 5px;
 }
 
-header.masthead {
-  margin-bottom: 50px;
-  background: no-repeat center center;
-  background-color: #868e96;
-  background-attachment: scroll;
-  position: relative;
-  background-size: cover;
-}
-
-header.masthead .overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  background-color: #212529;
-  opacity: 0.5;
-}
-
-header.masthead .page-heading,
-header.masthead .post-heading,
-header.masthead .site-heading {
-  padding: 200px 0 150px;
-  color: white;
-}
-
-@media only screen and (min-width: 768px) {
-
-  header.masthead .page-heading,
-  header.masthead .post-heading,
-  header.masthead .site-heading {
-    padding: 200px 0;
-  }
-}
-
-header.masthead .page-heading,
-header.masthead .site-heading {
-  text-align: center;
-}
-
-header.masthead .page-heading h1,
-header.masthead .site-heading h1 {
-  font-size: 50px;
-  margin-top: 0;
-}
-
-header.masthead .page-heading .subheading,
-header.masthead .site-heading .subheading {
-  font-size: 24px;
-  font-weight: 300;
-  line-height: 1.1;
-  display: block;
-  margin: 10px 0 0;
-  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
-
-@media only screen and (min-width: 768px) {
-
-  header.masthead .page-heading h1,
-  header.masthead .site-heading h1 {
-    font-size: 80px;
-  }
-}
-
-header.masthead .post-heading h1 {
-  font-size: 35px;
-}
-
-header.masthead .post-heading .meta,
-header.masthead .post-heading .subheading {
-  line-height: 1.1;
-  display: block;
-}
-
-header.masthead .post-heading .subheading {
-  font-size: 24px;
-  font-weight: 600;
-  margin: 10px 0 30px;
-  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
-
-header.masthead .post-heading .meta {
-  font-size: 20px;
-  font-weight: 300;
-  font-style: italic;
-  font-family: 'Lora', 'Times New Roman', serif;
-}
-
-header.masthead .post-heading .meta a {
-  color: #fff;
-}
-
-@media only screen and (min-width: 768px) {
-  header.masthead .post-heading h1 {
-    font-size: 55px;
-  }
-
-  header.masthead .post-heading .subheading {
-    font-size: 30px;
-  }
+.post-box {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  /*设置省略号在容器第十行文本后*/
+  -webkit-line-clamp: 8;
+  overflow: hidden;
 }
 
 .post-preview>a {
@@ -302,23 +135,26 @@ header.masthead .post-heading .meta a {
   color: #0085A1;
 }
 
-.post-preview>a>.post-title {
+.post-box>a>.post-title {
   font-size: 30px;
   margin-top: 10px;
   margin-bottom: 10px;
 }
 
-.post-preview>a>.post-subtitle {
+.post-box>a>.post-subtitle {
   font-weight: 300;
   margin: 0 0 10px;
 }
 
-.post-preview>.post-meta {
-  font-size: 12px;
+.post-meta {
+  font-size: 15px;
   font-style: italic;
   margin-top: 0;
   margin-bottom: 5px;
   color: #868e96;
+  display: inline-block;
+  height: 45px;
+  position: relative;
 }
 
 .post-preview>.post-meta>a {
@@ -332,14 +168,19 @@ header.masthead .post-heading .meta a {
   color: #0085A1;
 }
 
-.post-preview>.author-thumbnail {
+.author-thumbnail {
   margin-right: 10px;
-  float: left
+  display: inline-block;
+  height: 45px;
+  width: 45px;
+  position: relative;
+  float: left;
 }
 
-.post-preview>.author-thumbnail>.author-img {
-  height: 30px;
-  width: 30px;
+.author-thumbnail>.author-img {
+  height: 100%;
+  width: 100%;
+  visibility: middle;
 }
 
 @media only screen and (min-width: 768px) {
@@ -455,11 +296,7 @@ footer .copyright {
   color: #0085A1;
 }
 
-.comment-cell>.author-thumbnail>.author-img {
-  float: left;
-  margin-right: 10px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+.comment-cell>.author-thumbnail {
   height: 35px;
   width: 35px;
 }
@@ -505,4 +342,30 @@ footer .copyright {
 
 .viewdata-title {
   margin-bottom: 20px;
+}
+
+.tag-container {
+  margin-bottom: 40px;
+  font-style: italic;
+  color: #868e96;
+}
+
+.tag-list {
+  margin-bottom: 40px;
+  font-size: 15px
+}
+
+.tag-list .list-group-item {
+  padding: 5px 10px;
+  border: 0;
+}
+
+.date-list {
+  margin-bottom: 40px;
+  font-size: 15px
+}
+
+.date-list .list-group-item {
+  padding: 5px 10px;
+  border: 0;
 }

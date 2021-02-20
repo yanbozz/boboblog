@@ -48,8 +48,8 @@ function do_reply(parentid, rootid, username, e) {
     e.preventDefault()
     // console.log(parentid, rootid);
     // console.log(typeof username);
-    $("#reply-form #id_parent_id").val(parentid);
-    $("#reply-form #id_root_id").val(rootid);
+    $("#reply-form #id_parent").val(parentid);
+    $("#reply-form #id_root").val(rootid);
     $("#reply-form").appendTo($("#div-comment-" + rootid));
     $("#reply-form .textarea").attr('placeholder', '回复 @' + username + ': ');
     $("#reply-form .textarea").val('回复 @' + username + ': ')

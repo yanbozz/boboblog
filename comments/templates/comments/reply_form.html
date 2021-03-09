@@ -12,6 +12,7 @@
   </form>
 </div>
 <script src="{% static 'blog/vendor/jquery/jquery.js' %}"></script>
+{% if user.is_authenticated %}
 <script type="text/javascript">
     $("#reply-form").submit(function () {
       const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
@@ -49,3 +50,4 @@
       return false;
     });
 </script>
+{% endif %}

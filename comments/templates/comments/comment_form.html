@@ -1,5 +1,6 @@
 {% load crispy_forms_tags %}
 {% load static %}
+
 <div id="comment-form" class="comment-form">
   <form method="POST" action="{% url 'comment-post' object.id %}" class="ml-45">
     {% csrf_token %}
@@ -10,6 +11,7 @@
   </form>
 </div>
 <script src="{% static 'blog/vendor/jquery/jquery.js' %}"></script>
+{% if user.is_authenticated %}
 <script type="text/javascript">
     $("#comment-form").submit(function (event) {
       event.preventDefault();
@@ -39,3 +41,4 @@
       return false;
     });
 </script>
+{% endif %}
